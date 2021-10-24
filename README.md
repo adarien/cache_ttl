@@ -15,7 +15,7 @@ func main() {
 	cache.Set("userID", 42, time.Second*1)
 	cache.Set("userName", "adarien", time.Second*3)
 	cache.Set("userStatus", true, time.Second*100)
-	fmt.Println(cache.currentCache)
+	fmt.Println(cache)
 
 	userID, err := cache.Get("userID")
 	if err != nil {
@@ -25,7 +25,7 @@ func main() {
 	}
 
 	time.Sleep(time.Second * 3)
-	fmt.Println(cache.currentCache)
+	fmt.Println(cache)
 
 	userID, err = cache.Get("userID")
 	if err != nil {
@@ -36,6 +36,6 @@ func main() {
 
 	time.Sleep(time.Second * 2)
 
-	fmt.Println(cache.currentCache)
+	fmt.Println(cache)
 }
 ```
