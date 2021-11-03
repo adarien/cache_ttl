@@ -6,36 +6,28 @@
 package main
 
 import (
-	"fmt"
-	"github.com/adarien/cache_ttl"
+	"m3oUser/m3oUserAPI"
 )
 
+const APIKey = "YOUR_APIKEY"
+
 func main() {
-	cache := cache.New()
-	cache.Set("userID", 42, time.Second*1)
-	cache.Set("userName", "adarien", time.Second*3)
-	cache.Set("userStatus", true, time.Second*100)
-	fmt.Println(cache)
+	client := m3oUserAPI.NewClientAPI(APIKey)
 
-	userID, err := cache.Get("userID")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(userID)
-	}
+	// Создаём нового пользователя
+	id := "usrid-2"
+	username := "petya"
+	email := "petya@ninja.go"
+	password := "qwerty123"
+	client.CreateUser(id, username, email, password)
 
-	time.Sleep(time.Second * 3)
-	fmt.Println(cache)
+	// Выводим информацию по ID
+	client.GetUserByID(id)
 
-	userID, err = cache.Get("userID")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(userID)
-	}
+	// Удаляем пользователя по ID
+	client.DeleteUserByID(id)
 
-	time.Sleep(time.Second * 2)
-
-	fmt.Println(cache)
+	// Проверяем статус ошибки при получении информации об удалённом пользователе
+	client.GetUserByID(id)
 }
 ```
